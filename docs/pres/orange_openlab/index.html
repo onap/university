@@ -1,0 +1,564 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Orange ONAP OpenLab</title>
+
+		<link rel="stylesheet" href="../reveal.js/css/reveal.css">
+		<link rel="stylesheet" href="../reveal.js/css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown>
+					<textarea data-template>
+						# ONAP
+						## Orange OpenLab
+						14/05/2018
+
+						[M.Richomme](https://twitter.com/morganrichomme), Orange
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						# Agenda
+						* Introduction
+						* Facts & Figures
+						* How to join
+						* Focus on NewPortal
+						* Focus on OpenLab activities
+						* Next steps
+					</textarea>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							# Introduction
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## A Telco need
+							A neutral public place to work on SDN/NFV Orchestration
+							* Internally
+							* With external vendors
+							* With other Telcos
+							* With academics
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## OpenLab must be
+							* Open
+							* Secured
+							* Stable
+							* Easily reinstallable
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## The OPNFV experience
+							* Resources used for CI/CD Colorado validation
+							* Community lab used by partners for several years
+							* Active contributions (Functest, XCI, Multisites)
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Orange ONAP OpenLab
+							* OPNFV XCI/Bifrost (experimental)
+							* Kolla Ansible Pike (os-nosdn-nofeature-ha)
+							* ONAP Amsterdam (latest stable) / installed with Heat
+							* 2 Additional ONAPs deployed daily (CI/CD)
+							  * Heat: Amsterdam & master daily
+							  * OOM: Amsterdam daily
+						</textarea>
+					</section>
+					<section data-markdown>
+						![archi](../../img/archi.png)
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							# ONAP OpenLab
+							## Facts & figures
+						</textarea>
+					</section>
+
+					<section data-markdown>
+						![map](../../img/map.png)
+						<h2>Lab located in Lannion (France)</h2>
+
+						[OpenStreetMap link](https://umap.openstreetmap.fr/fr/map/onap-orange-openlab_198724#8/49.175/-1.428)
+					</section>
+
+
+					<section>
+						<h2>Orange OpenLab</h2>
+						<table>
+							<thead>
+								<tr>
+									<th>Server</th>
+									<th>Type</th>
+									<th>Cores</th>
+									<th>Memory</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>jumphost</td>
+									<td>VM</td>
+									<td>8</td>
+									<td>8G</td>
+								</tr>
+								<tr>
+									<td>Controller1-2-3</td>
+									<td>Baremetal (Dell R630)</td>
+									<td>16</td>
+									<td>64G</td>
+								</tr>
+								<tr>
+									<td>Compute1-2-3-4</td>
+									<td>Baremetal (Dell R630)</td>
+									<td>32</td>
+									<td>256G</td>
+								</tr>
+								<tr>
+									<td>Compute5</td>
+									<td>Baremetal (Huawei E9000 blade)</td>
+									<td>56</td>
+									<td>256G</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+
+					<section data-markdown>
+						<textarea data-template>
+							### OPNFV Functest tests run daily
+							#### (stable & master alternatively)
+							* Healthcheck
+							* Smoke (Tempest/Rally/Refstack/Patrole/..)
+							* VNF (Clearwater IMS, vyosvrouter, OAI EPC)
+							* 3h30 of daily tests on the infrastructure
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### OpenLab Infra CI
+							![CI](../../img/infra-ci-pipeline.png)
+						</textarea>
+					</section>
+					<section>
+						<pre><code data-trim data-noescape>
+					2018-04-20 08:58:37,823 - xtesting.ci.run_tests - INFO - Xtesting report:
+
+					+------------------------------+------------------+---------------+------------------+----------------+
+					|          TEST CASE           |     PROJECT      |      TIER     |     DURATION     |     RESULT     |
+					+------------------------------+------------------+---------------+------------------+----------------+
+					|          vping_ssh           |     functest     |     smoke     |      00:46       |      PASS      |
+					|        vping_userdata        |     functest     |     smoke     |      00:36       |      PASS      |
+					|     tempest_smoke_serial     |     functest     |     smoke     |      16:01       |      PASS      |
+					|         rally_sanity         |     functest     |     smoke     |      25:49       |      PASS      |
+					|       refstack_defcore       |     functest     |     smoke     |      07:32       |      PASS      |
+					|           patrole            |     functest     |     smoke     |      04:40       |      PASS      |
+					|         snaps_smoke          |     functest     |     smoke     |      58:05       |      PASS      |
+					|             odl              |     functest     |     smoke     |      00:00       |      SKIP      |
+					|         odl_netvirt          |     functest     |     smoke     |      00:00       |      SKIP      |
+					|        neutron_trunk         |     functest     |     smoke     |      00:00       |      SKIP      |
+					+------------------------------+------------------+---------------+------------------+----------------+
+
+					2018-04-20 08:58:37,830 - xtesting.ci.run_tests - INFO - Execution exit value: Result.EX_OK
+					</code></pre>
+				</section>
+				<section>
+					<pre><code data-trim data-noescape>
+						2018-04-20 10:59:50,878 - xtesting.ci.run_tests - INFO - Xtesting report:
+
+						+----------------------+------------------+--------------+------------------+----------------+
+						|      TEST CASE       |     PROJECT      |     TIER     |     DURATION     |     RESULT     |
+						+----------------------+------------------+--------------+------------------+----------------+
+						|     cloudify_ims     |     functest     |     vnf      |      33:57       |      PASS      |
+						|     vyos_vrouter     |     functest     |     vnf      |      09:54       |      FAIL      |
+						|       juju_epc       |     functest     |     vnf      |      64:10       |      PASS      |
+						+----------------------+------------------+--------------+------------------+----------------+
+
+						2018-04-20 10:59:50,881 - xtesting.ci.run_tests - INFO - Execution exit value: Result.EX_ERROR
+				</code></pre>
+			</section>
+
+					<section data-markdown>
+						<textarea data-template>
+							### OpenLab ONAP CI
+							* Robot tests run daily using ONAP/XTesting
+							* Results stored in OPNFV Test DB through test API
+							* Results displayed in different pages
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### ONAP robot test supervizion
+							![stat](../../img/openlab-onap_supervizion.png)
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## ONAP user distribution (25/04/2018)
+							58 accounts created
+
+							![stat](../../img/stat1.png)
+						</textarea>
+					</section>
+
+					<section data-markdown>
+						<textarea data-template>
+							### ONAP user evolution (25/04/2018)
+							launch date: 14/2/2018
+							![stat](../../img/stat2.png)
+						</textarea>
+					</section>
+
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							# How to Join?
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Who can access?
+							* Any ONAP contributor: test, integration, VNF onboarding
+							* Orange can revoke the access if resources are used in an unappropriate way
+							* No SLA (Best Effort)
+							* Open IRC chan: #onap-orange
+							* Mailing list: onap-openlab AT list.orange.com
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## How to access?
+							Send a mail to onap-openlab@list.orange.com with:
+							* Name
+							* Company/university
+							* Nature of the work you want to do on ONAP
+							* Public ssh key
+							* Start and end date
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Then...
+							* You will be notified by mail that your account has been created
+							* SSH access to ONAP rebound
+							  * Openstack of the onap-vnfs tenant
+							  * README file with all the end points (and there are a lot..)
+							* Access to HTTP portals (through SSH tunnel)
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## ONAP main portal
+							![stat](../../img/portal_page.png)
+						</textarea>
+					</section>
+
+					<section data-markdown>
+						<textarea data-template>
+							## ONAP Community lab
+							* User management automated through Ansible roles
+							![stat](../../img/openlab-access.png)
+						</textarea>
+					</section>
+
+				</section>
+
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							# Focus on NewPortal
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Why a new Portal?
+							* Mainly to
+							  * learn
+							  * test
+							  * monitor
+							* [Python/Flask](http://flask.pocoo.org/) + [Orange boosted](http://boosted.orange.com/)
+							* Hosted in Orange internal gitlab (but could be shared)
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Why a new Portal ?
+							* Nothing really new / VID and other existing portals
+							* Can be used to automatically deployed vIMS or vMRF
+							* Can be used for NBI tests
+							* Integrated in ONAP portal
+						</textarea>
+					</section>
+					<section data-markdown>
+						![stat](../../img/stat3.png)
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							# Focus on OpenLab activities
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Example 1
+							### vProbes with Astelia
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### Use case description
+							* Deploy a vIMS (Clearwater) and vProbe system using ONAP
+							* Create (Manually) port mirroring
+							* Generate Traffic (looping Clearwater test scenarios)
+							* Generate CDRs
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### vProbe use case
+							![stat](../../img/astelia.png)
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Example 2
+							### vMRF with Radisys
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### Use case description
+							* Deploy a vMRF using ONAP
+							* Modify the configuration using App-c (Netconf/Yang)
+							* Generate traffic (sipp)
+							* Configure VES to collect vMRF events
+							* Generate graphs based on events (not possible to manage a full loop with Amsterdam)
+							* Demo shown during last MWC
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### vMRF use case
+							![stat](../../img/radisys.png)
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Example 3
+							### NBI
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### NBI (Northbound Interface)
+							* Introduced in Beijing
+							* Project: externalapi https://git.onap.org/externalapi/nbi/
+							* Implementation of TMF APIs
+							* An enabler to provide Inter Operability with legacy BSS/OSS
+							* Demo planned at TMF forum (this week)
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### NBI architecture
+							![stat](../../img/nbi-archi.png)
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### NBI NewPortal main page
+							![stat](../../img/nbi-1.png)
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							#### Network Service Catalog
+							![stat](../../img/nbi-2.png)
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							#### Network Service Orders
+							![stat](../../img/nbi-3.png)
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							#### Network Service instances
+							![stat](../../img/nbi-4.png)
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Example 4
+							### Automation of onboarding
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### Dev of a Python testing lib
+							* Deploy any VNF based on their service template
+							  * Create Service Instance
+							  * Create VNF
+							  * Manage SDNC preload
+							  * Create VF/Module
+							* Tested with vIMS, vMRF (tests with vFW in progress..some issues due to hardcoded stuff)
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### Goals
+							* Automate ONAP VNF testing
+							* Use Xtesting framework
+							* Integrate such testing in daily CI/CD chains
+						</textarea>
+					</section>
+					<section>
+						<pre><code data-trim data-noescape>
+							Type "help", "copyright", "credits" or "license" for more information.
+							>>> import onap_tests.scenario.solution as solution
+							>>> solution_mgr = solution.Solution(case="ims")
+							INFO:onap_tests.scenario.solution:get VNF Clearwater 0 info
+							INFO:onap_tests.scenario.solution:Complete Module info for VNF Clearwater 0
+							>>> solution_mgr.instantiate()
+							INFO:onap_tests.scenario.solution: VNF successfully created
+						</code></pre>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Example 5
+							### ONAP Robot Xtesting
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							### Integration of Robot tests in OPNFV XTesting framework
+							* Dockerization of the tests (for CI/CD)
+							* Consistent reporting (same than the infra)
+							* Slicing of the tests
+							* Supervision of the tests more modular
+							* https://github.com/Orange-OpenSource/xtesting-onap-robot
+						</textarea>
+					</section>
+					<section>
+						<pre><code data-trim data-noescape>
+									2018-05-14 07:13:17,812 - xtesting.ci.run_tests - INFO - Xtesting report:
+
+									+---------------------------+------------------+--------------+------------------+----------------+
+									|         TEST CASE         |     PROJECT      |     TIER     |     DURATION     |     RESULT     |
+									+---------------------------+------------------+--------------+------------------+----------------+
+									|     robot_healthcheck     |     functest     |     onap     |      00:01       |      PASS      |
+									|         robot_api         |     functest     |     onap     |      00:00       |      FAIL      |
+									|         robot_dcae        |     functest     |     onap     |      00:00       |      FAIL      |
+									|      robot_multicloud     |     functest     |     onap     |      00:00       |      PASS      |
+									|       robot_3rdparty      |     functest     |     onap     |      00:01       |      PASS      |
+									+---------------------------+------------------+--------------+------------------+----------------+
+
+									2018-05-14 07:13:17,817 - xtesting.ci.run_tests - INFO - Execution exit value: Result.EX_ERROR
+							</code></pre>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## ONAP XTesting reporting
+							![stat](../../img/onap_xtesting_reporting.png)
+						</textarea>
+					</section>
+
+					<section data-markdown>
+						<textarea data-template>
+							## Example N
+							* We do not control what is done by all the members...
+							* Yours?
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							# Next steps
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Next steps (1/2)
+							* Expose ONAP/OOM/Amsterdam and ONAP/Heat/Master daily tests (XCI)
+							* Create an ONAP XTesting docker for VNFs (and include it in daily CI/CD)
+							* Share the code in official repos when it will be possible
+							* Contribute to slimification (already done with Robot VM from 2Go -> 80 Mo)
+							* Support ONAP integration in OPNFV XCI
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Next steps (2/2)
+							* Automate a test case including a loop (vMRF?)
+							* Develop a "SDN" test case
+							* Work on ONAP Ansible installer (~ ONAP kolla)
+							* Improve monitoring/supervizion capabilities
+							* Improve backup/restore capabilities
+							* Initiate studies on a Multisites test case
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							# Merci - Thank you - 谢谢 - תודה - شكرا - спасибо
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							# Questions
+						</textarea>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="../reveal.js/lib/js/head.min.js"></script>
+		<script src="../reveal.js/js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: '../reveal.js/plugin/markdown/marked.js' },
+					{ src: '../reveal.js/plugin/markdown/markdown.js' },
+					{ src: '../reveal.js/plugin/notes/notes.js', async: true },
+					{ src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
