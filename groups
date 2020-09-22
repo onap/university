@@ -2,4 +2,3 @@
 #
 daebbf523be390041a1a9c0e340a6d833aae5043                                   	GitHub Replication
 edb248b6f4784865f3c476b643ada903f506bf5f                                   	saml/onap-gerrit-university-committers
-ldap:cn=onap-gerrit-university-committers,ou=Groups,dc=freestandards,dc=org	ldap/onap-gerrit-university-committers
